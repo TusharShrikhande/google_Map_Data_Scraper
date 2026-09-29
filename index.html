@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#07100d">
+
+    <title>MapScraper — Business Intelligence</title>
+
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         BACKGROUND VISUALS
+    ====================================================== -->
+
+    <div class="ambient-bg">
+
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+
+        <div class="grid-background"></div>
+
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+
+    </div>
+
+    <!-- Mouse light -->
+    <div id="mouseLight"></div>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <div class="nav-inner">
+
+            <div class="brand">
+
+                <div class="brand-mark">
+                    <span>M</span>
+                </div>
+
+                <div class="brand-text">
+
+                    <div class="brand-name">
+                        MapScraper
+                    </div>
+
+                    <div class="brand-subtitle">
+                        Business Intelligence
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="nav-status">
+
+                <span class="status-dot"></span>
+
+                <span id="backendStatus">
+                    Backend Connected
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="page">
+
+        <!-- ================================================
+             HERO
+        ================================================= -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+
+                    <span class="eyebrow-dot"></span>
+
+                    GOOGLE MAPS DATA ENGINE
+
+                </div>
+
+                <h1>
+
+                    Turn local search into
+
+                    <span class="gradient-text">
+                        business data.
+                    </span>
+
+                </h1>
+
+                <p class="hero-description">
+
+                    Search Google Maps, collect business information,
+                    and transform local listings into structured,
+                    downloadable datasets.
+
+                </p>
+
+
+                <div class="hero-stats">
+
+                    <div class="hero-stat">
+
+                        <strong id="heroResults">
+                            0
+                        </strong>
+
+                        <span>
+                            Businesses
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-stat">
+
+                        <strong>
+                            10+
+                        </strong>
+
+                        <span>
+                            Data Fields
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-stat">
+
+                        <strong>
+                            CSV
+                        </strong>
+
+                        <span>
+                            Export
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-visual">
+
+                <div class="radar">
+
+                    <div class="radar-ring ring-1"></div>
+                    <div class="radar-ring ring-2"></div>
+                    <div class="radar-ring ring-3"></div>
+
+                    <div class="radar-sweep"></div>
+
+                    <div class="radar-center">
+                        <span>MAP</span>
+                    </div>
+
+                    <div class="radar-point point-1"></div>
+                    <div class="radar-point point-2"></div>
+                    <div class="radar-point point-3"></div>
+                    <div class="radar-point point-4"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             WORKSPACE
+        ================================================== -->
+
+        <section class="workspace">
+
+
+            <!-- =============================================
+                 SEARCH PANEL
+            ============================================== -->
+
+            <aside class="search-panel glass-card">
+
+                <div class="panel-glow"></div>
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <div class="section-label">
+                            NEW SEARCH
+                        </div>
+
+                        <h2>
+                            Start scraping
+                        </h2>
+
+                    </div>
+
+                    <div class="spark-icon">
+                        ✦
+                    </div>
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <form id="scrapeForm">
+
+                    <div class="field">
+
+                        <label>
+                            SEARCH QUERY
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ⌕
+                            </span>
+
+                            <input
+                                id="searchQuery"
+                                type="text"
+                                placeholder="e.g. hotels in Aurangabad"
+                                autocomplete="off"
+                                required
+                            />
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- QUICK SEARCH -->
+
+                    <div class="quick-search">
+
+                        <button
+                            type="button"
+                            class="quick-btn"
+                            data-query="hotels in Aurangabad">
+
+                            Hotels
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="quick-btn"
+                            data-query="restaurants in Aurangabad">
+
+                            Restaurants
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="quick-btn"
+                            data-query="schools in Aurangabad">
+
+                            Schools
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="quick-btn"
+                            data-query="beauty salons in Aurangabad">
+
+                            Salons
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- RESULT LIMIT -->
+
+                    <div class="field">
+
+                        <label>
+                            NUMBER OF RESULTS
+                        </label>
+
+                        <div class="select-wrapper">
+
+                            <select id="resultLimit">
+
+                                <option value="100">
+                                    100 businesses
+                                </option>
+
+                                <option value="500" selected>
+                                    500 businesses
+                                </option>
+
+                                <option value="1000">
+                                    1,000 businesses
+                                </option>
+
+                                <option value="2000">
+                                    2,000 businesses
+                                </option>
+
+                                <option value="all">
+                                    All available
+                                </option>
+
+                            </select>
+
+                            <span>
+                                ↓
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- START BUTTON -->
+
+                    <button
+                        type="submit"
+                        id="startButton"
+                        class="start-button">
+
+                        <span class="button-text">
+                            Start Scraping
+                        </span>
+
+                        <span class="button-icon">
+                            →
+                        </span>
+
+                        <span class="button-loader"></span>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="stopButton"
+                        class="stop-button"
+                        disabled>
+                        Stop Scraping
+                    </button>
+
+                </form>
+
+
+                <div class="panel-note">
+
+                    <span>✦</span>
+
+                    Chrome will open automatically and
+                    collect the requested businesses.
+
+                </div>
+
+            </aside>
+
+
+
+            <!-- =============================================
+                 RESULTS AREA
+            ============================================== -->
+
+            <section class="results-area">
+
+
+                <!-- RESULTS HEADER -->
+
+                <div class="results-header">
+
+                    <div>
+
+                        <div class="section-label">
+                            SCRAPER RESULTS
+                        </div>
+
+                        <h2 id="resultsTitle">
+                            Ready to search
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        id="downloadButton"
+                        class="download-button"
+                        disabled>
+
+                        <span>
+                            ↓
+                        </span>
+
+                        Download CSV
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     PROGRESS CARD
+                ========================================== -->
+
+                <div class="progress-card glass-card">
+
+                    <div class="progress-top">
+
+                        <div class="progress-status">
+
+                            <div
+                                id="progressIcon"
+                                class="progress-icon">
+
+                                <span>✦</span>
+
+                            </div>
+
+                            <div>
+
+                                <div
+                                    id="progressStatus"
+                                    class="progress-title">
+
+                                    Ready
+
+                                </div>
+
+                                <div
+                                    id="progressMessage"
+                                    class="progress-message">
+
+                                    Enter a search query to begin.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="progressCount"
+                            class="progress-count">
+
+                            0
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            id="progressBar"
+                            class="progress-bar">
+
+                        </div>
+
+                        <div class="progress-shimmer"></div>
+
+                    </div>
+
+
+                    <div class="progress-meta">
+
+                        <span id="progressPercentage">
+                            Waiting
+                        </span>
+
+                        <span id="progressDetails">
+                            Google Maps data will appear here.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     DATA TABLE
+                ========================================== -->
+
+                <div class="table-card glass-card">
+
+                    <div class="table-header">
+
+                        <div>
+
+                            <span class="table-title">
+                                Business Directory
+                            </span>
+
+                            <span
+                                id="tableCount"
+                                class="table-count">
+
+                                0 records
+
+                            </span>
+
+                        </div>
+
+                        <div class="live-indicator">
+
+                            <span></span>
+
+                            LIVE DATA
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        BUSINESS
+                                    </th>
+
+                                    <th>
+                                        CATEGORY
+                                    </th>
+
+                                    <th>
+                                        RATING
+                                    </th>
+
+                                    <th>
+                                        PHONE
+                                    </th>
+
+                                    <th>
+                                        ADDRESS
+                                    </th>
+
+                                    <th>
+                                        WEBSITE
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="resultsBody">
+
+                                <tr class="empty-row">
+
+                                    <td colspan="6">
+
+                                        <div class="empty-state">
+
+                                            <div class="empty-icon">
+                                                ◌
+                                            </div>
+
+                                            <h3>
+                                                Waiting for data
+                                            </h3>
+
+                                            <p>
+                                                Google Maps business data
+                                                will appear here.
+                                            </p>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="table-footer">
+
+                        <span id="footerStatus">
+                            Ready to scrape
+                        </span>
+
+                        <span>
+                            Full data available in CSV
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <section class="features-section">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    DATA ENGINE
+                </div>
+
+                <h2>
+                    Everything you need to build
+                    <span class="gradient-text">
+                        local datasets.
+                    </span>
+                </h2>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-card glass-card">
+
+                    <div class="feature-number">
+                        01
+                    </div>
+
+                    <div class="feature-icon">
+                        ◉
+                    </div>
+
+                    <h3>
+                        Smart Search
+                    </h3>
+
+                    <p>
+                        Search businesses using natural
+                        Google Maps queries.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card glass-card">
+
+                    <div class="feature-number">
+                        02
+                    </div>
+
+                    <div class="feature-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        Structured Data
+                    </h3>
+
+                    <p>
+                        Collect names, phones, ratings,
+                        addresses, websites and more.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card glass-card">
+
+                    <div class="feature-number">
+                        03
+                    </div>
+
+                    <div class="feature-icon">
+                        ↓
+                    </div>
+
+                    <h3>
+                        CSV Export
+                    </h3>
+
+                    <p>
+                        Download your complete dataset
+                        in a spreadsheet-ready format.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card glass-card">
+
+                    <div class="feature-number">
+                        04
+                    </div>
+
+                    <div class="feature-icon">
+                        ↗
+                    </div>
+
+                    <h3>
+                        Live Progress
+                    </h3>
+
+                    <p>
+                        Watch your scraper collect and
+                        process businesses in real time.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+        id="toast"
+        class="toast">
+
+        <div class="toast-icon">
+            ✓
+        </div>
+
+        <div>
+
+            <strong id="toastTitle">
+                Success
+            </strong>
+
+            <p id="toastMessage">
+                Operation completed.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SCRIPT
+    ====================================================== -->
+
+    <script src="{{ url_for('static', filename='app.js') }}">
+    </script>
+
+</body>
+
+</html>
